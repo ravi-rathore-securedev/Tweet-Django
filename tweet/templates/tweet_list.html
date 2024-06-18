@@ -1,0 +1,34 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+Twitter
+{% endblock %}
+
+{% block content %}
+<h1 class="text-center mt-4">
+    Welcome To The Django Twitter Website
+</h1>
+
+<a class="btn btn-primary m-4" href="{% url 'Tweet_create' %}">Create a Tweet</a>
+<div class="d-flex flex-wrap justify-content-center gap-5">
+
+    
+    {% for tweet in tweets %}
+    <div class="card" style="width: 25rem;">
+        <img src="{{tweet.photo.url}}" class="card-img-top" alt="..." height="520px">
+        <div class="card-body">
+          <h5 class="card-title text-dark">{{tweet.user.username}}</h5>
+          <p class="card-text text-dark">{{tweet.text}}</p>
+          
+          {% if tweet.user == user %}
+          <a href="{% url 'Tweet_edit' tweet.id %}"  class="btn btn-primary">Edit</a>
+          <a href="{% url 'Tweet_delete' tweet.id %}" class="btn btn-danger">Delete</a>
+          {% endif %}
+        </div>
+      </div>
+    {% endfor %}
+        
+
+</div>
+
+{% endblock %}
